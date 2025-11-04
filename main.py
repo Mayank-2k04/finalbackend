@@ -76,6 +76,3 @@ async def get_user_reports(current_user: dict = Depends(get_current_user)):
         "user_email": current_user["user_email"],
         "report_history": reports
     }
-# @app.get("/homepage")
-# def homepage(current_user: dict = Depends(get_current_user)):
-#     return current_user
