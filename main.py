@@ -50,10 +50,32 @@ async def extract_lab_report(
         raise HTTPException(status_code=404, detail="User not found")
 
     return {
-        "message": "Report added successfully to user",
-        "report": report_obj
+        "message": "Report added successfully to user"
     }
 
+@app.get("/reports")
+async def get_user_reports(current_user: dict = Depends(get_current_user)):
+    try:
+        user_object_id = ObjectId(current_user["user_id"])
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid user ID format")
+
+    # Find the user document
+    user_doc = users.find_one({"_id": user_object_id}, {"reports": 1, "_id": 0})
+    if not user_doc:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Extract only structured_data from each report
+    reports = [
+        report.get("structured_data", {})
+        for report in user_doc.get("reports", [])
+        if "structured_data" in report
+    ]
+
+    return {
+        "user_email": current_user["user_email"],
+        "report_history": reports
+    }
 # @app.get("/homepage")
 # def homepage(current_user: dict = Depends(get_current_user)):
 #     return current_user
