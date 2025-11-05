@@ -25,7 +25,7 @@ Given the patient's blood metrics (as input), follow these steps:
      - The metric name
      - The patient's value
      - The normal range (from above)
-     - Whether it is Low or High
+     - Whether the metric is Low or Above the specified range. If it is above the range mention high otherwise low.
 
 2. Explain Medical Insights
    For each abnormal metric identified:
@@ -46,7 +46,7 @@ Given the patient's blood metrics (as input), follow these steps:
 Patient metrics:"""
 
 llm = ChatMistralAI(
-    model="open-mistral-nemo",
+    model="mistral-small-2503",
     api_key=os.environ["MISTRAL_API_NEW"],
     temperature=0.3
 )
@@ -56,4 +56,4 @@ def get_suggestion(data: dict):
     augmented = prompt + "\n\n" + formatted
     return llm.invoke(augmented).content.replace("*","")
 
-print(get_suggestion({"RBC":4.6, "Hemoglobin":11}))
+print(get_suggestion({"RBC":8, "Hemoglobin":11}))

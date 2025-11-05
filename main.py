@@ -87,7 +87,9 @@ async def analyze_blood_report(metrics: List[Dict[str, Any]]):
             raise HTTPException(status_code=400, detail="No metrics provided.")
         test_data = metrics[-1]
         suggestion = summary.get_suggestion(test_data)
-        return {"results": suggestion}
+        if isinstance(suggestion, (dict, list)):
+            suggestion = "\n".join([str(v) for v in suggestion.values()]) if isinstance(suggestion,dict) else "\n".join(suggestion)
+        return {"results":str(suggestion)}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
