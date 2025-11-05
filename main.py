@@ -116,7 +116,7 @@ async def chat_blood_report(
         print(f"[Chat] RAG response length: {len(response)} characters")
 
         return {
-            "response": response,
+            "response": response.replace("*",""),
             "status": "success"
         }
 

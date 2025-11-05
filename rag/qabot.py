@@ -78,4 +78,4 @@ def chat_with_blood_ai(metrics: dict, user_input: str) -> str:
     """Run the conversational RAG chatbot on blood report metrics."""
     prompt_text = create_prompt(metrics, user_input)
     result = chatbot.invoke({"question": prompt_text})
-    return result["answer"]
+    return result["answer"].replace("*","")
