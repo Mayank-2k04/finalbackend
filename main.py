@@ -122,7 +122,6 @@ async def chat_blood_report(
 
     except HTTPException as he:
         raise he
-
     except Exception as e:
         print(f"[Chat] Error in chat endpoint: {str(e)}")
         import traceback
