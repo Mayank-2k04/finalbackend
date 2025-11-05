@@ -14,3 +14,4 @@ langchain-mistralai==0.2.12
 pinecone==7.3.0
 langchain-pinecone==0.2.12
 sentence-transformers==5.1.1
+python-dotenv~=1.2.1

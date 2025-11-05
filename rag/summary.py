@@ -56,4 +56,4 @@ def get_suggestion(data: dict):
     augmented = prompt + "\n\n" + formatted
     return llm.invoke(augmented).content.replace("*","")
 
-print(get_suggestion({"RBC":8, "Hemoglobin":11}))
+print(get_suggestion({"Hemoglobin":18}))
