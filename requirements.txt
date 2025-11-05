@@ -8,3 +8,9 @@ bcrypt==4.2.1
 python-jose[cryptography]~=3.5.0
 boto3~=1.40.65
 spacy~=3.8.7
+langchain==0.3.27
+langchain-community==0.3.29
+langchain-mistralai==0.2.12
+pinecone==7.3.0
+langchain-pinecone==0.2.12
+sentence-transformers==5.1.1

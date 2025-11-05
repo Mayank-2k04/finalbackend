@@ -7,6 +7,8 @@ from auth import get_current_user
 from datetime import datetime, timezone
 from db import users
 from bson import ObjectId
+from typing import List,Dict,Any
+from rag import summary
 
 app = FastAPI(title="Campus Safety & Item Recovery")
 
@@ -76,3 +78,16 @@ async def get_user_reports(current_user: dict = Depends(get_current_user)):
         "user_email": current_user["user_email"],
         "report_history": reports
     }
+
+
+@app.post("/analyze-blood-report")
+async def analyze_blood_report(metrics: List[Dict[str, Any]]):
+    try:
+        if not metrics or len(metrics) == 0:
+            raise HTTPException(status_code=400, detail="No metrics provided.")
+        test_data = metrics[-1]
+        suggestion = summary.get_suggestion(test_data)
+        return {"results": suggestion}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
